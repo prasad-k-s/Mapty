@@ -7,7 +7,7 @@ A responsive workout-tracking web app that lets you log your running and cycling
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![Leaflet](https://img.shields.io/badge/Leaflet-199900?style=for-the-badge&logo=leaflet&logoColor=white)
 
-**🔗 Live demo:** [prasad-k-s.github.io/Mapty](https://prasad-mapty.netlify.app/)
+**🔗 Live demo:** [prasad-mapty.netlify.ap](https://prasad-mapty.netlify.app/)
 
 ---
 
