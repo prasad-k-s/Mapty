@@ -7,13 +7,14 @@ A responsive workout-tracking web app that lets you log your running and cycling
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![Leaflet](https://img.shields.io/badge/Leaflet-199900?style=for-the-badge&logo=leaflet&logoColor=white)
 
-**🔗 Live demo:** [prasad-k-s.github.io/Mapty](https://prasad-k-s.github.io/Mapty/)
+**🔗 Live demo:** [prasad-k-s.github.io/Mapty](https://prasad-mapty.netlify.app/)
 
 ---
 
 ## ✨ Features
 
 ### 📍 Map & location
+
 - Opens the map at your **current location** using the Geolocation API
 - **Location fallback screen** when access is blocked, with a one-click retry and step-by-step help to unblock it
 - **Continue without location** — the app stays fully usable, opening around your saved workouts
@@ -21,12 +22,14 @@ A responsive workout-tracking web app that lets you log your running and cycling
 - **"Show all workouts" button** zooms the map to fit every pin
 
 ### 🏃 Workouts
+
 - Log **running** (distance, duration, cadence) and **cycling** (distance, duration, elevation gain) workouts
 - Automatically calculates **pace** (min/km) for running and **speed** (km/h) for cycling
 - Each workout shows the **date and time** it was logged
 - Click a workout in the list to fly to its pin on the map
 
 ### ✏️ Manage your data
+
 - **Edit** any workout — change values or even switch between running and cycling
 - **Delete** a single workout with an inline confirmation
 - **Delete all** workouts with a confirmation dialog
@@ -34,12 +37,14 @@ A responsive workout-tracking web app that lets you log your running and cycling
 - All data is **persisted in localStorage**, so workouts survive page reloads
 
 ### ✅ Form validation
+
 - Inline, per-field error messages (no `alert()` popups)
 - Sensible rules and limits (e.g. distance > 0 and ≤ 1000 km, elevation can be negative)
 - Errors update live as you correct them
 - Keyboard friendly — `Enter` to submit, `Esc` to close
 
 ### 📱 Fully responsive
+
 - **Desktop:** sidebar + map side by side
 - **Tablet:** compact sidebar
 - **Mobile:** map on top, scrollable workout list below
@@ -51,15 +56,15 @@ A responsive workout-tracking web app that lets you log your running and cycling
 
 ## 🛠️ Tech Stack
 
-| Technology | Purpose |
-| --- | --- |
-| **HTML5** | Structure and semantic markup |
-| **CSS3** | Flexbox, Grid, container queries, media queries, custom properties |
-| **JavaScript (ES2022)** | Classes, private fields, async/await, event delegation |
-| **[Leaflet.js](https://leafletjs.com/)** | Interactive map rendering |
-| **OpenStreetMap** | Map tiles |
-| **Geolocation & Permissions APIs** | User location and permission state |
-| **localStorage** | Client-side data persistence |
+| Technology                               | Purpose                                                            |
+| ---------------------------------------- | ------------------------------------------------------------------ |
+| **HTML5**                                | Structure and semantic markup                                      |
+| **CSS3**                                 | Flexbox, Grid, container queries, media queries, custom properties |
+| **JavaScript (ES2022)**                  | Classes, private fields, async/await, event delegation             |
+| **[Leaflet.js](https://leafletjs.com/)** | Interactive map rendering                                          |
+| **OpenStreetMap**                        | Map tiles                                                          |
+| **Geolocation & Permissions APIs**       | User location and permission state                                 |
+| **localStorage**                         | Client-side data persistence                                       |
 
 ---
 
@@ -76,6 +81,7 @@ App                → controls the map, form, list, and storage
 ```
 
 Key techniques used:
+
 - **Private class fields** (`#map`, `#workouts`) to encapsulate app state
 - **Event delegation** — a single listener handles clicks on all workout cards
 - **Rehydrating objects** from localStorage back into real `Running` / `Cycling` instances
@@ -87,6 +93,7 @@ Key techniques used:
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 A modern web browser. No build tools or dependencies to install.
 
 ### Run locally
@@ -127,6 +134,6 @@ Mapty/
 
 ## 🙏 Credits
 
-The base project comes from [Jonas Schmedtmann's](https://twitter.com/jonasschmedtman) *The Complete JavaScript Course*.
+The base project comes from [Jonas Schmedtmann's](https://twitter.com/jonasschmedtman) _The Complete JavaScript Course_.
 
 On top of the course version I added a fully responsive layout, inline form validation, a location-permission fallback with "continue without location", a "show all workouts" map control, editing, single and bulk deletion, an empty state, workout times, and several bug fixes.
