@@ -4,20 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="shortcut icon" type="image/png" href="/icon.png" />
+    <meta name="theme-color" content="#2d3439" />
+    <link rel="shortcut icon" type="image/png" href="icon.png" />
 
     <link
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap"
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
       crossorigin=""
     />
+    <link rel="stylesheet" href="style.css" />
     <script
       defer
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -30,106 +31,133 @@
   </head>
   <body>
     <div class="sidebar">
-      <img src="logo.png" alt="Logo" class="logo" />
+      <img src="logo.png" alt="Mapty logo" class="logo" />
+
+      <div class="workouts__header hidden">
+        <p class="workouts__count">0 workouts</p>
+        <button class="workouts__delete-all" type="button">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" /></svg>
+          Delete all
+        </button>
+      </div>
 
       <ul class="workouts">
-        <form class="form hidden">
+        <form class="form hidden" novalidate>
           <div class="form__row">
-            <label class="form__label">Type</label>
-            <select class="form__input form__input--type">
+            <label class="form__label" for="input-type">Type</label>
+            <select class="form__input form__input--type" id="input-type">
               <option value="running">Running</option>
               <option value="cycling">Cycling</option>
             </select>
           </div>
           <div class="form__row">
-            <label class="form__label">Distance</label>
-            <input class="form__input form__input--distance" placeholder="km" />
+            <label class="form__label" for="input-distance">Distance</label>
+            <input
+              class="form__input form__input--distance"
+              id="input-distance"
+              inputmode="decimal"
+              autocomplete="off"
+              placeholder="km"
+              aria-describedby="error-distance"
+            />
+            <p class="form__error" id="error-distance" aria-live="polite"></p>
           </div>
           <div class="form__row">
-            <label class="form__label">Duration</label>
+            <label class="form__label" for="input-duration">Duration</label>
             <input
               class="form__input form__input--duration"
+              id="input-duration"
+              inputmode="decimal"
+              autocomplete="off"
               placeholder="min"
+              aria-describedby="error-duration"
             />
+            <p class="form__error" id="error-duration" aria-live="polite"></p>
           </div>
           <div class="form__row">
-            <label class="form__label">Cadence</label>
+            <label class="form__label" for="input-cadence">Cadence</label>
             <input
               class="form__input form__input--cadence"
+              id="input-cadence"
+              inputmode="numeric"
+              autocomplete="off"
               placeholder="step/min"
+              aria-describedby="error-cadence"
             />
+            <p class="form__error" id="error-cadence" aria-live="polite"></p>
           </div>
           <div class="form__row form__row--hidden">
-            <label class="form__label">Elev Gain</label>
+            <label class="form__label" for="input-elevation">Elev Gain</label>
             <input
               class="form__input form__input--elevation"
+              id="input-elevation"
+              inputmode="text"
+              autocomplete="off"
               placeholder="meters"
+              aria-describedby="error-elevation"
             />
+            <p class="form__error" id="error-elevation" aria-live="polite"></p>
           </div>
-          <button class="form__btn">OK</button>
+          <div class="form__actions">
+            <button class="form__cancel" type="button">Cancel</button>
+            <button class="form__btn" type="submit">OK</button>
+          </div>
         </form>
 
-        <!-- <li class="workout workout--running" data-id="1234567890">
-          <h2 class="workout__title">Running on April 14</h2>
-          <div class="workout__details">
-            <span class="workout__icon">🏃‍♂️</span>
-            <span class="workout__value">5.2</span>
-            <span class="workout__unit">km</span>
+        <li class="empty-state hidden">
+          <div class="empty-state__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z" />
+              <path d="M9 4v14M15 6v14" />
+            </svg>
           </div>
-          <div class="workout__details">
-            <span class="workout__icon">⏱</span>
-            <span class="workout__value">24</span>
-            <span class="workout__unit">min</span>
-          </div>
-          <div class="workout__details">
-            <span class="workout__icon">⚡️</span>
-            <span class="workout__value">4.6</span>
-            <span class="workout__unit">min/km</span>
-          </div>
-          <div class="workout__details">
-            <span class="workout__icon">🦶🏼</span>
-            <span class="workout__value">178</span>
-            <span class="workout__unit">spm</span>
-          </div>
+          <h2 class="empty-state__title">No workouts yet</h2>
+          <p class="empty-state__text">
+            <span class="empty-state__verb--click">Click</span
+            ><span class="empty-state__verb--tap">Tap</span> anywhere on the
+            map to add your first running or cycling workout.
+          </p>
         </li>
-
-        <li class="workout workout--cycling" data-id="1234567891">
-          <h2 class="workout__title">Cycling on April 5</h2>
-          <div class="workout__details">
-            <span class="workout__icon">🚴‍♀️</span>
-            <span class="workout__value">27</span>
-            <span class="workout__unit">km</span>
-          </div>
-          <div class="workout__details">
-            <span class="workout__icon">⏱</span>
-            <span class="workout__value">95</span>
-            <span class="workout__unit">min</span>
-          </div>
-          <div class="workout__details">
-            <span class="workout__icon">⚡️</span>
-            <span class="workout__value">16</span>
-            <span class="workout__unit">km/h</span>
-          </div>
-          <div class="workout__details">
-            <span class="workout__icon">⛰</span>
-            <span class="workout__value">223</span>
-            <span class="workout__unit">m</span>
-          </div>
-        </li> -->
       </ul>
 
-      <p class="copyright">
-        &copy; Copyright by
-        <a
-          class="twitter-link"
-          target="_blank"
-          href="https://twitter.com/jonasschmedtman"
-          >Jonas Schmedtmann</a
-        >. Use for learning or your portfolio. Don't use to teach. Don't claim
-        as your own.
-      </p>
+      <p class="copyright">&copy; Mapty</p>
     </div>
 
-    <div id="map"></div>
+    <div class="map-wrapper">
+      <div id="map"></div>
+
+      <div class="map-fallback" role="status" aria-live="polite">
+        <div class="map-fallback__card">
+          <div class="map-fallback__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z" />
+              <circle cx="12" cy="9.5" r="2.5" />
+            </svg>
+          </div>
+          <div class="map-fallback__spinner" aria-hidden="true"></div>
+          <h2 class="map-fallback__title">Finding your location…</h2>
+          <p class="map-fallback__text">
+            Allow location access so the map can open where you are.
+          </p>
+          <div class="map-fallback__actions">
+            <button class="btn btn--primary map-fallback__retry" type="button">
+              Enable location
+            </button>
+            <button class="btn btn--ghost map-fallback__skip" type="button">
+              Continue without location
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <dialog class="modal" aria-labelledby="modal-title">
+      <h2 class="modal__title" id="modal-title">Delete all workouts?</h2>
+      <p class="modal__text">This will permanently remove all your workouts. This can't be undone.</p>
+      <div class="modal__actions">
+        <button class="btn btn--ghost modal__cancel" type="button">Cancel</button>
+        <button class="btn btn--danger modal__confirm" type="button">Delete all</button>
+      </div>
+    </dialog>
   </body>
 </html>
